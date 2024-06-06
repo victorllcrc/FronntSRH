@@ -24,7 +24,7 @@ export const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setButtonText("Registrando...");
-    let response = await fetch(API_URL+"api/signup", {
+    let response = await fetch(API_URL+"api/signup/v2", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
