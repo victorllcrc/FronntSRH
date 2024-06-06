@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from 'react-on-screen';
+import { API_URL } from '../config';
 
 export const SignUp = () => {
   const formInitialDetails = {
@@ -23,7 +24,7 @@ export const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setButtonText("Registrando...");
-    let response = await fetch("http://localhost:5000/login", {
+    let response = await fetch(API_URL+"api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
