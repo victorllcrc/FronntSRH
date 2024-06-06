@@ -16,7 +16,7 @@ export const Banner2 = () => {
   const [index, setIndex] = useState(1);
 
   // Lista de palabras a rotar, intercalando entre "Colega" y el nombre del usuario
-  const toRotate = ["Colega", userName]; 
+  const toRotate = ["Huésped", userName]; 
   const period = 2000;
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export const Banner2 = () => {
               )}
             </TrackVisibility>
           </Col>
-          <Col xs={12} md={6} xl={5}>
+          {/* <Col xs={12} md={6} xl={5}>
             <TrackVisibility>
               {({ isVisible }) => (
                 <div className={isVisible ? "animate__animated animate__zoomIn" : ""}>
@@ -83,7 +83,7 @@ export const Banner2 = () => {
                 </div>
               )}
             </TrackVisibility>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </section>
