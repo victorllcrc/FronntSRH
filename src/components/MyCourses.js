@@ -65,7 +65,7 @@ export const MyCourses = () => {
           style={{ marginBottom: '10px', width: '50%' }}
         /> */}
 
-        <h3>Reservas Recientes</h3>
+        <h3>Reservas Actuales</h3>
         <Row>
           {notStartedCourses.map((course) => (
             <Col key={course.course_id._id} xs={12} md={6} lg={4}>
@@ -86,7 +86,7 @@ export const MyCourses = () => {
         </Row>
 
         
-        <h3>Reservas Finalizadas</h3>
+        <h3>Reservas Recientes</h3>
         <Row>
           {completedCourses.map((course) => (
             <Col key={course.course_id._id} xs={12} md={6} lg={4}>

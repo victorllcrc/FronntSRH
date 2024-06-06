@@ -44,7 +44,7 @@ export const NavBar2 = () => {
               className={activeLink === 'courses' ? 'active navbar-link' : 'navbar-link'}
               onClick={() => onUpdateActiveLink('courses')}>Hospedajes</Nav.Link>
             <Nav.Link
-              as={Link} to="/shopping"
+              as={Link} to="/mycourses"
               className={activeLink === 'shopping' ? 'active navbar-link' : 'navbar-link'}
               onClick={() => onUpdateActiveLink('shopping')}>Mis Reservas
             </Nav.Link>
