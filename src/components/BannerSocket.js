@@ -53,8 +53,8 @@ return (
                     <p>Temperatura (C): {dataSocket.temp_c}</p>
                     <p>Temperatura (F): {dataSocket.temp_f}</p>
                     <p>Humedad: {dataSocket.hume}</p>
-                    <p>Sensor de Tierra: {dataSocket.s_ter}</p>
-                    <p>Luz (LDR): {dataSocket.ldr}</p>
+                    <p>Sensacion termica: {dataSocket.s_ter}</p>
+                    <p>Luz ambiental: {dataSocket.ldr}</p>
                 </div>
             ) : (
                 <p>Cargando...</p>

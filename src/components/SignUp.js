@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 import TrackVisibility from 'react-on-screen';
 import { API_URL } from '../config';
+import { jwtDecode } from "jwt-decode";
+import { useAuth } from '../AuthContext';
 
 export const SignUp = () => {
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const formInitialDetails = {
     user: '',
     email: '',
@@ -24,13 +31,13 @@ export const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setButtonText("Registrando...");
-    let response = await fetch(API_URL+"api/signup/v2", {
+    let response = await fetch(API_URL+"singUp/v2", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify({
-        user: formDetails.user,
+        name: formDetails.user,
         email: formDetails.email,
         password: formDetails.password,
       }),
@@ -39,8 +46,18 @@ export const SignUp = () => {
     setButtonText("Regístrate");
     let result = await response.json();
 
-    if (result.success) {
+    const token = result.token
+
+    if (token) {
       setStatus({ success: true, message: 'Registro exitoso' });
+      const decodedToken = jwtDecode(token);
+      localStorage.setItem('token', token);
+      const userData = {
+        email: decodedToken.email,
+        name: decodedToken.name
+      };
+      login(userData); // Actualizar el contexto de autenticación
+      navigate('/'); // Redirigir a la página principal
     } else {
       setStatus({ success: false, message: 'Usuario o contraseña incorrectos' });
     }
