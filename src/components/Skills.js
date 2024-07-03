@@ -43,15 +43,15 @@ export const Skills = () => {
                             </div> */}
                             <div className="item">
                                 <img src={meter1} alt="Image" />
-                                <h5>Calidad</h5>
+                                <p id="quality">Calidad</p>
                             </div>
                             <div className="item">
                                 <img src={meter3} alt="Image" />
-                                <h5>Responsabilidad</h5>
+                                <p id="quality">Responsabilidad</p>
                             </div>
                             <div className="item">
                                 <img src={meter1} alt="Image" />
-                                <h5>Resultados Efectivos</h5>
+                                <p id="quality">Resultados Efectivos</p>
                             </div>
                         </Carousel>
                     </div>

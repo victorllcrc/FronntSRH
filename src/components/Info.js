@@ -1,58 +1,71 @@
+import React, { useState, useEffect } from 'react';
+import { Container } from "react-bootstrap";
 import { NavBar2 } from './NavBar2';
 import { Footer } from './Footer';
-import { useState, useEffect } from 'react';
-import { usePurchases } from '../ShoppingContext';
 import { BannerInfo } from './BannerInfo';
 import { BannerDescription } from './BannerDescription';
 import { BannerDescription2 } from './BannerDescription2';
-import { BannerSocket } from './BannerSocket';
+import { BannerSocket } from './BannerSocket'; // Mantén el uso de BannerSocket aquí
 import axios from "axios";
 import { API_URL } from '../config';
 import { useParams } from 'react-router-dom';
+import { usePurchases } from '../ShoppingContext';
 
-export const Info = ({ course }) => {
-  const { addPurchase } = usePurchases();
-  const [showModal, setShowModal] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState(null);
-  const [DataCourse, setDataCourse] = useState({});
-  const { id } = useParams();
+export const Info = () => {
+    const { addPurchase } = usePurchases();
+    const [showModal, setShowModal] = useState(false);
+    const [selectedCourse, setSelectedCourse] = useState(null);
+    const [DataCourse, setDataCourse] = useState({});
+    const { id } = useParams();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(API_URL + 'api/courses/'+id);
-        setDataCourse(response.data);
-        console.log(response.data)
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${API_URL}api/courses/${id}`);
+                setDataCourse(response.data);
+                console.log(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, [id]);
+
+    const handlePurchase = () => {
+        setSelectedCourse(DataCourse);
+        setShowModal(true);
     };
 
-    fetchData();
-  }, []);
+    const handleConfirmPurchase = () => {
+        addPurchase(selectedCourse);
+        setShowModal(false);
+    };
 
-  const handlePurchase = () => {
-    setSelectedCourse(DataCourse);
-    setShowModal(true); // Mostrar el modal de compra
-  };
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
-  const handleConfirmPurchase = () => {
-    addPurchase(selectedCourse); // Agregar el artículo a las compras
-    setShowModal(false); // Cerrar el modal
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false); // Cerrar el modal
-  };
-
-  return (
-    <section> 
-      <NavBar2 />
-      <BannerInfo course={DataCourse} onPurchase={handlePurchase} />
-      <BannerDescription course={DataCourse} />
-      <BannerDescription2 course={DataCourse} />
-      <BannerSocket course={DataCourse} />
-      <Footer />
-    </section>
-  );
+    return (
+        <div id="root">
+            <NavBar2 />
+            <section>
+                <div className="grid-container">
+                    <div className="grid-item">
+                        <BannerInfo course={DataCourse} onPurchase={handlePurchase} />
+                    </div>
+                    <div className="grid-item">
+                        <BannerDescription course={DataCourse} />
+                    </div>
+                    <div className="grid-item">
+                        <BannerDescription2 course={DataCourse} />
+                    </div>
+                    <div className="grid-item">
+                        <BannerSocket course={DataCourse} showCamera={true} /> {/* Mostrar lógica de cámara en Info */}
+                    </div>
+                </div>
+            </section>
+            <Footer />
+        </div>
+    );
 };
